@@ -1,0 +1,15 @@
+Config(
+    total_timesteps: 50000,
+    rollout: (
+        steps: 32,
+        num_envs: 64,
+        processes: 4,
+    ),
+    optim: (
+        bs: 512,
+        lr: 0.005,
+    ),
+    track: true,
+    wandb_project_name: "enn-tensor-rts-tournament",
+    wandb_entity: "mr132816"
+)
