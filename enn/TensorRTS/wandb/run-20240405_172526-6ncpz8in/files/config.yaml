@@ -1,0 +1,128 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.12.21
+    code_path: code/enn/TensorRTS/train.py
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.10.13
+    start_time: 1712352326
+    t:
+      1:
+      - 1
+      - 55
+      2:
+      - 1
+      - 55
+      3:
+      - 1
+      - 13
+      - 16
+      - 35
+      4: 3.10.13
+      5: 0.12.21
+      8:
+      - 5
+capture_logits:
+  desc: null
+  value: false
+capture_samples:
+  desc: null
+  value: null
+capture_samples_subsample:
+  desc: null
+  value: 1
+cuda:
+  desc: null
+  value: true
+cuda_empty_cache:
+  desc: null
+  value: false
+data_dir:
+  desc: null
+  value: .
+env:
+  desc: null
+  value:
+    id: MoveToOrigin
+    kwargs: '{}'
+    validate: true
+eval:
+  desc: null
+  value: null
+max_train_time:
+  desc: null
+  value: null
+name:
+  desc: null
+  value: config
+net:
+  desc: null
+  value:
+    attn_pdrop: 0.0
+    d_model: 32
+    d_qk: 16
+    embd_pdrop: 0.0
+    n_head: 2
+    n_layer: 2
+    pooling: null
+    relpos_encoding: null
+    resid_pdrop: 0.0
+    translation: null
+optim:
+  desc: null
+  value:
+    anneal_lr: true
+    bs: 512
+    lr: 0.005
+    lr_warmup_steps: null
+    max_grad_norm: 2.0
+    micro_bs: null
+    update_epochs: 3
+    weight_decay: 0.0
+ppo:
+  desc: null
+  value:
+    anneal_entropy: true
+    clip_coef: 0.2
+    clip_vloss: true
+    ent_coef: 0.1
+    gae: true
+    gae_lambda: 0.95
+    gamma: 0.99
+    norm_adv: true
+    target_kl: null
+    vf_coef: 0.5
+rollout:
+  desc: null
+  value:
+    num_envs: 64
+    processes: 4
+    steps: 32
+seed:
+  desc: null
+  value: 1
+torch_deterministic:
+  desc: null
+  value: true
+total_timesteps:
+  desc: null
+  value: 50000
+track:
+  desc: null
+  value: true
+trial:
+  desc: null
+  value: null
+vf_net:
+  desc: null
+  value: null
+wandb_entity:
+  desc: null
+  value: al044516
+wandb_project_name:
+  desc: null
+  value: TensorRTS

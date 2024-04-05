@@ -26,13 +26,13 @@ callback = WandbLoggingCallback()
 # Initialize wandb
 wandb.init(
 
-    project="TensorRTS",
+    project="TensorRTSsb3",
 
     config={
         "algorithm": "PPO",
         "policy": "MlpPolicy",
         "timesteps": 100000,
-        "env": "TensorRTS_Env"
+        "env": "TensorRTS"
     }
 )
 

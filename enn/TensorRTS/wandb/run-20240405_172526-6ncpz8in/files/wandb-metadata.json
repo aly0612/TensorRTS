@@ -1,0 +1,27 @@
+{
+    "os": "Linux-5.10.102.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "python": "3.10.13",
+    "heartbeatAt": "2024-04-05T21:25:26.698772",
+    "startedAt": "2024-04-05T21:25:26.020080",
+    "docker": null,
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "gpu_count": 1,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [
+        "--config=config.ron",
+        "--checkpoint-dir=checkpoints"
+    ],
+    "state": "running",
+    "program": "/home/austi/documents/OhioUniversity/gameAI/PA4/TensorRTS/enn/TensorRTS/train.py",
+    "codePath": "enn/TensorRTS/train.py",
+    "git": {
+        "remote": "https://github.com/aly0612/TensorRTS.git",
+        "commit": "5a3de0d10763b925bb61abfab3e5fcd78a22edad"
+    },
+    "email": "al044516@ohio.edu",
+    "root": "/home/austi/documents/OhioUniversity/gameAI/PA4/TensorRTS",
+    "host": "AustinPC",
+    "username": "austi",
+    "executable": "/home/austi/miniconda3/envs/TensorRTS/bin/python"
+}

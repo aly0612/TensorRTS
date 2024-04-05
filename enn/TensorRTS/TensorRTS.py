@@ -680,3 +680,4 @@ if __name__ == "__main__":  # This is to run wth a random agent
                 obs, reward, terminated, truncated, info = env.step(random_action)
                 done = terminated or truncated
                 print('reward:', reward, '\n')
+                

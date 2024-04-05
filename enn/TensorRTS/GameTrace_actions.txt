@@ -1,0 +1,13 @@
+False - {'Move': GlobalCategoricalAction(index=0, label='advance', probs=None)}
+False - {'Move': GlobalCategoricalAction(index=1, label='retreat', probs=None)}
+False - {'Move': GlobalCategoricalAction(index=0, label='advance', probs=None)}
+False - {'Move': GlobalCategoricalAction(index=0, label='advance', probs=None)}
+False - {'Move': GlobalCategoricalAction(index=1, label='retreat', probs=None)}
+False - {'Move': GlobalCategoricalAction(index=1, label='retreat', probs=None)}
+False - {'Move': GlobalCategoricalAction(index=0, label='advance', probs=None)}
+False - {'Move': GlobalCategoricalAction(index=0, label='advance', probs=None)}
+False - {'Move': GlobalCategoricalAction(index=0, label='advance', probs=None)}
+False - {'Move': GlobalCategoricalAction(index=0, label='advance', probs=None)}
+False - {'Move': GlobalCategoricalAction(index=0, label='advance', probs=None)}
+False - {'Move': GlobalCategoricalAction(index=0, label='advance', probs=None)}
+False - {'Move': GlobalCategoricalAction(index=0, label='advance', probs=None)}

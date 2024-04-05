@@ -1,0 +1,37 @@
+diff --git a/enn/TensorRTS/TensorRTS.py b/enn/TensorRTS/TensorRTS.py
+index 7c9c64e..9807700 100644
+--- a/enn/TensorRTS/TensorRTS.py
++++ b/enn/TensorRTS/TensorRTS.py
+@@ -679,4 +679,5 @@ if __name__ == "__main__":  # This is to run wth a random agent
+                 print('action:', random_action)
+                 obs, reward, terminated, truncated, info = env.step(random_action)
+                 done = terminated or truncated
+-                print('reward:', reward, '\n')
+\ No newline at end of file
++                print('reward:', reward, '\n')
++                
+\ No newline at end of file
+diff --git a/enn/TensorRTS/config.ron b/enn/TensorRTS/config.ron
+index 4d86f2d..6827f1d 100644
+--- a/enn/TensorRTS/config.ron
++++ b/enn/TensorRTS/config.ron
+@@ -1,5 +1,5 @@
+ Config(
+-    total_timesteps: 10000,
++    total_timesteps: 50000,
+     rollout: (
+         steps: 32,
+         num_envs: 64,
+@@ -9,4 +9,7 @@ Config(
+         bs: 512,
+         lr: 0.005,
+     ),
+-)
++    track: true,
++    wandb_project_name: "TensorRTS",
++    wandb_entity: "al044516"
++)
+\ No newline at end of file
+diff --git a/enn/TensorRTS/train.py b/enn/TensorRTS/train.py
+old mode 100644
+new mode 100755
