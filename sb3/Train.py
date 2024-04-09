@@ -1,8 +1,8 @@
-from stable_baselines3 import PPO
+from stable_baselines3 import A2C
 import os
 import time
 import wandb
-from sb3.TensorRTS_Env import *
+from TensorRTS_Env import TensorRTS_GymEnv
 from stable_baselines3.common.callbacks import BaseCallback
 from natsort import natsorted
 
@@ -10,30 +10,58 @@ class WandbLoggingCallback(BaseCallback):
 
     def __init__(self, verbose=0):
         super(WandbLoggingCallback, self).__init__(verbose)
+        self.win_count = 0
+        self.loss_count = 0
+        self.game_count = 0
 
     def _on_step(self):
-        # This method will be called by the model after each call to `env.step()`.
-        # info = self.model.env.envs[0]._get_info()
-        info = None
-        if info is not None:
-            wandb.log(info)
-        return True
+            infos = self.locals['infos']  # Extracts info for all environments
+            for info in infos:
+                if 'game_over' in info and info['game_over']:  # Check if a game has ended
+                    self.game_count += 1
+                    if info.get('win', False):  # get win key from info
+                        self.win_count += 1
+                    if info.get('lost', False):  # get lost key from info
+                        self.loss_count += 1
 
+        # Only log after each game to avoid too frequent logging
+            if 'game_over' in infos[0] and infos[0]['game_over']:
+                win_rate = self.win_count / self.game_count if self.game_count else 0
+                loss_rate = self.loss_count / self.game_count if self.game_count else 0
+                wandb.log({
+                    'win_rate': win_rate, 
+                    'loss_rate': loss_rate, 
+                    'win_count': self.win_count, 
+                    'loss_count': self.loss_count, 
+                    'games_played': self.game_count
+            })
+            return True
+        
 
 # Initialize callback
 callback = WandbLoggingCallback()
 
 # Initialize wandb
-wandb.init(
+run = wandb.init(
 
-    project="TensorRTSsb3",
+    project="TensorRTS",
 
     config={
-        "algorithm": "PPO",
-        "policy": "MlpPolicy",
-        "timesteps": 100000,
-        "env": "TensorRTS"
-    }
+         "architecture": "CNN",
+        "learning_rate": 5e-4,
+        "n_steps": 5,
+        "algorithm": "A2C",
+        "policy": "MultiInputPolicy",
+        "timesteps": 1e6,
+        "env": "TensorRTS_Env",
+        "batch_size": 128,
+        "n_epochs": 10,
+        "gae_lambda": 0.98,
+        "ent_coef": 0.001,
+        "vf_coef": 0.5,
+        "max_grad_norm": 0.5,
+    },
+  #  sync_tensorboard=True,
 )
 
 model_root_dir = 'models'
@@ -50,9 +78,9 @@ if not os.path.exists(models_dir):
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 
-env = TensorRTS_Env()
+env = TensorRTS_GymEnv()
 
-model = PPO('MultiInputPolicy', env, verbose=1, tensorboard_log=log_dir, device='cuda')
+model = A2C("MultiInputPolicy", env, verbose=1, tensorboard_log=log_dir)
 
 # Use natural sort to find the latest model.
 list_folders = natsorted(os.listdir(model_root_dir), reverse=True)
@@ -61,19 +89,22 @@ for folder in list_folders:
     if len(list_models) > 0:
         model_name = os.path.join(model_root_dir, folder, list_models[0])
         print('Loading model from', model_name)
-        model = PPO.load(path=model_name, env=env, device='cuda', tensorboard_log=log_dir)
+        model = A2C.load(model_name, env=env, tensorboard_log=log_dir)
         break
 
-TIMESTEPS = 100000
+TIMESTEPS = 1e6
 iters = 0
 
-while True:
-    iters += 1
 
-    model.learn(total_timesteps=TIMESTEPS, reset_num_timesteps=False, tb_log_name=f"PPO", callback=callback)
 
-    model.save(os.path.join(models_dir, str(iters)))
-    print(f"Saved model to {models_dir}/{iters}")
+model.learn(total_timesteps=TIMESTEPS, reset_num_timesteps=False, tb_log_name="A2C", callback=callback)
+
+
+model.save(os.path.join(models_dir, str(iters)))
+
+env.close()
+
+print(f"Saved model to {models_dir}/{iters}")
 
 # [Optional] Finish the wandb run
 wandb.finish()
